@@ -17,7 +17,6 @@
     position: relative;
   }
 
-  /* FUNDO DECORATIVO - TEMA ENROLADOS / RAPUNZEL */
   .bg-decorations {
     position: fixed;
     inset: 0;
@@ -99,7 +98,6 @@
   .bg-polaroid img { width: 100%; height: 110px; object-fit: cover; display: block; }
   .bg-polaroid span { font-family: 'Caveat', cursive; font-size: 1rem; color: #555; display: block; text-align: center; margin-top: 4px; }
 
-  /* TELA SOBREPOSTA INICIAL */
   #intro-overlay {
     position: fixed;
     inset: 0;
@@ -172,7 +170,6 @@
   }
   .btn-confirm:hover { background: #8a253c; transform: scale(1.03); }
 
-  /* CONTEÚDO PRINCIPAL (Pirâmide Inversa) */
   .main-container {
     position: relative;
     z-index: 10;
@@ -242,7 +239,6 @@
   .card-number { font-size: 1.4rem; font-weight: 600; margin-bottom: 5px; }
   .card-status { font-size: 0.8rem; }
 
-  /* MODAL DE LEITURA */
   #letter-modal {
     display: none;
     position: fixed;
@@ -296,7 +292,6 @@
 </head>
 <body>
 
-  <!-- FUNDO DECORATIVO COM 7 POLAROIDS EM PNG -->
   <div class="bg-decorations">
     <div class="paint-splash splash-1"></div>
     <div class="paint-splash splash-2"></div>
@@ -317,50 +312,48 @@
     <div class="floating-icon" style="top: 45%; left: 4%;">❤️</div>
 
     <div class="bg-polaroid" style="top: 8%; left: 12%; transform: rotate(-7deg);">
-      <img src="{{ url_for('static', filename='fundo1.png') }}" alt="Fundo 1">
+      <img src="{{ url_for('static', filename='Fundo1.png') }}" alt="Fundo 1">
       <span>Nossa aventura</span>
     </div>
     <div class="bg-polaroid" style="top: 10%; right: 14%; transform: rotate(6deg);">
-      <img src="{{ url_for('static', filename='fundo2.png') }}" alt="Fundo 2">
+      <img src="{{ url_for('static', filename='Fundo2.png') }}" alt="Fundo 2">
       <span>Sempre juntos</span>
     </div>
     <div class="bg-polaroid" style="top: 38%; left: 3%; transform: rotate(-4deg);">
-      <img src="{{ url_for('static', filename='fundo3.png') }}" alt="Fundo 3">
+      <img src="{{ url_for('static', filename='Fundo3.png') }}" alt="Fundo 3">
       <span>Luz brilhar</span>
     </div>
     <div class="bg-polaroid" style="top: 42%; right: 4%; transform: rotate(5deg);">
-      <img src="{{ url_for('static', filename='fundo4.png') }}" alt="Fundo 4">
+      <img src="{{ url_for('static', filename='Fundo4.png') }}" alt="Fundo 4">
       <span>Meu sonho</span>
     </div>
     <div class="bg-polaroid" style="bottom: 8%; left: 15%; transform: rotate(-6deg);">
-      <img src="{{ url_for('static', filename='fundo5.png') }}" alt="Fundo 5">
+      <img src="{{ url_for('static', filename='Fundo5.png') }}" alt="Fundo 5">
       <span>Magia pura</span>
     </div>
     <div class="bg-polaroid" style="bottom: 10%; right: 16%; transform: rotate(7deg);">
-      <img src="{{ url_for('static', filename='fundo6.png') }}" alt="Fundo 6">
+      <img src="{{ url_for('static', filename='Fundo6.png') }}" alt="Fundo 6">
       <span>Amor maior</span>
     </div>
     <div class="bg-polaroid" style="top: 25%; left: 22%; transform: rotate(-2deg); width: 110px;">
-      <img src="{{ url_for('static', filename='fundo7.png') }}" alt="Fundo 7" style="height: 90px;">
+      <img src="{{ url_for('static', filename='Fundo7.png') }}" alt="Fundo 7" style="height: 90px;">
       <span>Para sempre</span>
     </div>
   </div>
 
-  <!-- TELA 1: CARTA SOBREPOSTA COM DESFOQUE -->
   <div id="intro-overlay">
     <div class="envelope-wrapper">
       <div class="coffee-paper">
-        <p>"Antes de abrir o resto, meu amor, eu queria te pedir desculpas se em algum momento eu te magoei ou chateei, sabe que não são minhas intenções com você, afinal, você já deve saber quais são... Mas não custa reafirma-las mostrando o que você é pra mim e mostrando que eu presto atenção no detalhes que você me conta... Não sei se ficou bom, mas eu tentei dar o meu melhor, levou um tempinho, mas saiu. Eu te amo, me diz depois se gostou"</p>
+        <p>"Antes de abrir o resto, respire fundo. Assim como as lanternas flutuantes que iluminam o céu no dia mais esperado do ano, você trouxe luz para os meus dias. Cada detalhe aqui foi feito para mostrar o quanto você significa para mim..."</p>
         <div class="intro-photos">
-          <img src="{{ url_for('static', filename='intro1.png') }}" alt="Intro 1">
+          <img src="{{ url_for('static', filename='Intro1.png') }}" alt="Intro 1">
           <img src="{{ url_for('static', filename='intro2.png') }}" alt="Intro 2">
         </div>
-        <button class="btn-confirm" onclick="confirmIntro()">Confirme para continuar ✨</button>
+        <button class="btn-confirm" onclick="confirmIntro()">Li e estou pronto(a) para continuar ✨</button>
       </div>
     </div>
   </div>
 
-  <!-- TELA 2: AS 6 CARTAS EM PIRÂMIDE INVERSA -->
   <div class="main-container">
     <h1>Nossa História em 6 Cartas</h1>
     <p class="subtitle">Abra uma por vez, seguindo a ordem para desbloquear a próxima ✨</p>
@@ -368,7 +361,6 @@
     <div class="pyramid-container" id="cards-container"></div>
   </div>
 
-  <!-- MODAL PARA LER CADA CARTA -->
   <div id="letter-modal">
     <div class="modal-content">
       <h2 id="modal-title" style="margin-bottom: 15px; color: #4a154b;"></h2>
@@ -386,7 +378,7 @@
       titulo: "Carta 1 - O Ponto de Virada",
       texto: `Sabe, eu não sou o tipo de cara que fica romantizando tudo à toa, mas com você foi diferente. 
 
-      Desde o dia em que nossos caminhos se cruzaram, eu percebi que o meu mundo precisava mudar de direção. Assim como o Flynn Rider achava que tinha a vida ganha antes de conhecer a Rapunzel, você apareceu e virou a minha realidade de cabeça para baixo, do melhor jeito possível. Você é a minha escolha todos os dias.`,
+      Desde o dia em que nossos caminhos se cruzaram, eu percebi que o meu mundo precisava mudar de direção. Assim como o Flynn Rider achava que tinha a vida ganha antes de conhecer a Rapunzel, você apareceu e virou a minha realidade de cabeça para baixo — do melhor jeito possível. Você é a minha escolha todos os dias.`,
       fotos: [
         "{{ url_for('static', filename='c1-1.png') }}",
         "{{ url_for('static', filename='c1-2.png') }}",
@@ -399,7 +391,7 @@
       titulo: "Carta 2 - Quebrando os Muros",
       texto: `Muitas vezes a gente constrói muralhas e tenta resolver tudo sozinho, achando que é forte desse jeito. 
 
-      Mas a verdade é que você se tornou o meu refúgio e o meu ponto de paz. Com você, eu não preciso fingir que está tudo bem quando não está; bastou você chegar para eu perceber que a vida ainda planeja muitas coisas boa para mim. Você é a minha parceira de verdade, para qualquer coisa e eu vou sempre estar aqui para estar e ajudar você.`,
+      Mas a verdade é que você se tornou o meu refúgio e o meu ponto de paz. Com você, eu não preciso fingir que está tudo bem quando não está; bastou você chegar para eu perceber que a minha torre caiu por terra. Você é a minha parceira de verdade, para qualquer parada.`,
       fotos: [
         "{{ url_for('static', filename='c2-1.png') }}",
         "{{ url_for('static', filename='c2-2.png') }}",
@@ -410,7 +402,7 @@
       id: 3,
       corClasse: "color-3",
       titulo: "Carta 3 - Meu Novo Plano",
-      texto: `Em enrolados, a Rapunzel e o Flynn, descobrem que têm um novo sonho um no outro. Se eu for parar para pensar nos meus planos para o futuro, todos eles agora têm o seu nome no meio. 
+      texto: `No filme, eles descobrem que têm um novo sonho um no outro. Se eu for parar para pensar nos meus planos para o futuro, todos eles agora têm o seu nome no meio. 
 
       Eu quero estar lá para te apoiar, para caminhar junto e para construir a nossa história. Você virou a minha prioridade e a minha maior certeza em meio a tanta bagunça.`,
       fotos: [
