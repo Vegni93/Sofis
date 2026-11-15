@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Você ✨</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Playfair+Display:ital,wght@0,500;1,500&family=Poppins:wght@300;400;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #faf8f5;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* FUNDO DECORATIVO - TEMA ENROLADOS / RAPUNZEL */
+  .bg-decorations {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .paint-splash {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(45px);
+    opacity: 0.18;
+  }
+  .splash-1 { width: 380px; height: 380px; background: #9c27b0; top: -60px; left: -60px; }
+  .splash-2 { width: 420px; height: 420px; background: #ffb300; bottom: -100px; right: -60px; }
+  .splash-3 { width: 320px; height: 320px; background: #0288d1; top: 35%; right: 5%; }
+
+  .rapunzel-tower {
+    position: absolute;
+    bottom: 0;
+    left: 3%;
+    width: 90px;
+    height: 350px;
+    background: linear-gradient(to top, #3e2723, #5d4037 80%, #795548);
+    border-radius: 45px 45px 0 0;
+    opacity: 0.12;
+  }
+  .rapunzel-tower::before {
+    content: '';
+    position: absolute;
+    top: -55px;
+    left: -15px;
+    width: 120px;
+    height: 70px;
+    background: #6a1b9a;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+
+  .lantern {
+    position: absolute;
+    width: 24px;
+    height: 34px;
+    background: radial-gradient(circle, #fffde7 0%, #ffd54f 60%, #ff8f00 100%);
+    border-radius: 50% 50% 40% 40%;
+    box-shadow: 0 0 15px #ffb300, 0 0 30px #ffa000;
+    animation: floatUp 14s infinite linear;
+    opacity: 0.65;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.6) rotate(-5deg); opacity: 0; }
+    20% { opacity: 0.75; }
+    80% { opacity: 0.75; }
+    100% { transform: translateY(-10vh) scale(1.15) rotate(5deg); opacity: 0; }
+  }
+
+  .floating-icon {
+    position: absolute;
+    font-size: 1.8rem;
+    opacity: 0.35;
+    animation: sway 6s infinite ease-in-out alternate;
+  }
+
+  @keyframes sway {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-12px) rotate(5deg); }
+  }
+
+  .bg-polaroid {
+    position: absolute;
+    background: #fff;
+    padding: 8px 8px 25px 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border: 1px solid #eee;
+    width: 130px;
+    opacity: 0.75;
+  }
+  .bg-polaroid img { width: 100%; height: 110px; object-fit: cover; display: block; }
+  .bg-polaroid span { font-family: 'Caveat', cursive; font-size: 1rem; color: #555; display: block; text-align: center; margin-top: 4px; }
+
+  /* TELA SOBREPOSTA INICIAL */
+  #intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: opacity 0.8s ease;
+  }
+
+  .envelope-wrapper {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    background: #6b1d2f;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+
+  .coffee-paper {
+    background: radial-gradient(circle at top left, #f5e6c8, #e6cfa3 70%, #d4b483);
+    color: #3e2723;
+    padding: 30px 25px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 30px rgba(101, 67, 33, 0.3), 0 5px 15px rgba(0,0,0,0.2);
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    transform: rotate(-1deg);
+  }
+
+  .coffee-paper p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .intro-photos {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0 20px;
+  }
+
+  .intro-photos img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .intro-photos img:first-child { transform: rotate(-6deg); }
+  .intro-photos img:last-child { transform: rotate(5deg); }
+
+  .btn-confirm {
+    background: #6b1d2f;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .btn-confirm:hover { background: #8a253c; transform: scale(1.03); }
+
+  /* CONTEÚDO PRINCIPAL (Pirâmide Inversa) */
+  .main-container {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    color: #4a154b;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 0.95rem;
+  }
+
+  .pyramid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .pyramid-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .envelope-card {
+    height: 160px;
+    width: 240px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    transition: transform 0.3s, opacity 0.3s;
+    position: relative;
+    padding: 20px;
+  }
+
+  .envelope-card:hover:not(.locked) { transform: translateY(-6px); }
+
+  .color-1 { background: #d32f2f; }
+  .color-2 { background: #b39ddb; color: #2c1e4a; }
+  .color-3 { background: #1b5e20; }
+  .color-4 { background: #4fc3f7; color: #0d3b52; }
+  .color-5 { background: #1a237e; }
+  .color-6 { background: #6a1b9a; }
+
+  .envelope-card.locked {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(40%);
+  }
+
+  .card-number { font-size: 1.4rem; font-weight: 600; margin-bottom: 5px; }
+  .card-status { font-size: 0.8rem; }
+
+  /* MODAL DE LEITURA */
+  #letter-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .modal-content {
+    background: #fffdf9;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 14px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+
+  .modal-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: left;
+    white-space: pre-line;
+  }
+
+  .modal-photos {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+  }
+
+  .modal-photos img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body>
+
+  <!-- FUNDO DECORATIVO COM 7 POLAROIDS EM PNG -->
+  <div class="bg-decorations">
+    <div class="paint-splash splash-1"></div>
+    <div class="paint-splash splash-2"></div>
+    <div class="paint-splash splash-3"></div>
+
+    <div class="rapunzel-tower"></div>
+
+    <div class="lantern" style="left: 12%; animation-duration: 13s; animation-delay: 0s;"></div>
+    <div class="lantern" style="left: 32%; animation-duration: 10s; animation-delay: 2s;"></div>
+    <div class="lantern" style="left: 55%; animation-duration: 15s; animation-delay: 1s;"></div>
+    <div class="lantern" style="left: 78%; animation-duration: 11s; animation-delay: 4s;"></div>
+    <div class="lantern" style="left: 90%; animation-duration: 14s; animation-delay: 3s;"></div>
+
+    <div class="floating-icon" style="top: 10%; left: 8%;">☀️</div>
+    <div class="floating-icon" style="top: 20%; right: 10%;">🎨</div>
+    <div class="floating-icon" style="bottom: 15%; left: 15%;">⚜️</div>
+    <div class="floating-icon" style="bottom: 25%; right: 12%;">🌸</div>
+    <div class="floating-icon" style="top: 45%; left: 4%;">❤️</div>
+
+    <div class="bg-polaroid" style="top: 8%; left: 12%; transform: rotate(-7deg);">
+      <img src="{{ url_for('static', filename='fundo1.png') }}" alt="Fundo 1">
+      <span>Nossa aventura</span>
+    </div>
+    <div class="bg-polaroid" style="top: 10%; right: 14%; transform: rotate(6deg);">
+      <img src="{{ url_for('static', filename='fundo2.png') }}" alt="Fundo 2">
+      <span>Sempre juntos</span>
+    </div>
+    <div class="bg-polaroid" style="top: 38%; left: 3%; transform: rotate(-4deg);">
+      <img src="{{ url_for('static', filename='fundo3.png') }}" alt="Fundo 3">
+      <span>Luz brilhar</span>
+    </div>
+    <div class="bg-polaroid" style="top: 42%; right: 4%; transform: rotate(5deg);">
+      <img src="{{ url_for('static', filename='fundo4.png') }}" alt="Fundo 4">
+      <span>Meu sonho</span>
+    </div>
+    <div class="bg-polaroid" style="bottom: 8%; left: 15%; transform: rotate(-6deg);">
+      <img src="{{ url_for('static', filename='fundo5.png') }}" alt="Fundo 5">
+      <span>Magia pura</span>
+    </div>
+    <div class="bg-polaroid" style="bottom: 10%; right: 16%; transform: rotate(7deg);">
+      <img src="{{ url_for('static', filename='fundo6.png') }}" alt="Fundo 6">
+      <span>Amor maior</span>
+    </div>
+    <div class="bg-polaroid" style="top: 25%; left: 22%; transform: rotate(-2deg); width: 110px;">
+      <img src="{{ url_for('static', filename='fundo7.png') }}" alt="Fundo 7" style="height: 90px;">
+      <span>Para sempre</span>
+    </div>
+  </div>
+
+  <!-- TELA 1: CARTA SOBREPOSTA COM DESFOQUE -->
+  <div id="intro-overlay">
+    <div class="envelope-wrapper">
+      <div class="coffee-paper">
+        <p>"Antes de abrir o resto, meu amor, eu queria te pedir desculpas se em algum momento eu te magoei ou chateei, sabe que não são minhas intenções com você, afinal, você já deve saber quais são... Mas não custa reafirma-las mostrando o que você é pra mim e mostrando que eu presto atenção no detalhes que você me conta... Não sei se ficou bom, mas eu tentei dar o meu melhor, levou um tempinho, mas saiu. Eu te amo, me diz depois se gostou"</p>
+        <div class="intro-photos">
+          <img src="{{ url_for('static', filename='intro1.png') }}" alt="Intro 1">
+          <img src="{{ url_for('static', filename='intro2.png') }}" alt="Intro 2">
+        </div>
+        <button class="btn-confirm" onclick="confirmIntro()">Confirme para continuar ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA 2: AS 6 CARTAS EM PIRÂMIDE INVERSA -->
+  <div class="main-container">
+    <h1>Nossa História em 6 Cartas</h1>
+    <p class="subtitle">Abra uma por vez, seguindo a ordem para desbloquear a próxima ✨</p>
+
+    <div class="pyramid-container" id="cards-container"></div>
+  </div>
+
+  <!-- MODAL PARA LER CADA CARTA -->
+  <div id="letter-modal">
+    <div class="modal-content">
+      <h2 id="modal-title" style="margin-bottom: 15px; color: #4a154b;"></h2>
+      <p class="modal-text" id="modal-text"></p>
+      <div class="modal-photos" id="modal-photos"></div>
+      <button class="btn-confirm" onclick="closeModal()">Concluir leitura e continuar</button>
+    </div>
+  </div>
+
+<script>
+  const cartas = [
+    {
+      id: 1,
+      corClasse: "color-1",
+      titulo: "Carta 1 - O Ponto de Virada",
+      texto: `Sabe, eu não sou o tipo de cara que fica romantizando tudo à toa, mas com você foi diferente. 
+
+      Desde o dia em que nossos caminhos se cruzaram, eu percebi que o meu mundo precisava mudar de direção. Assim como o Flynn Rider achava que tinha a vida ganha antes de conhecer a Rapunzel, você apareceu e virou a minha realidade de cabeça para baixo, do melhor jeito possível. Você é a minha escolha todos os dias.`,
+      fotos: [
+        "{{ url_for('static', filename='c1-1.png') }}",
+        "{{ url_for('static', filename='c1-2.png') }}",
+        "{{ url_for('static', filename='c1-3.png') }}"
+      ]
+    },
+    {
+      id: 2,
+      corClasse: "color-2",
+      titulo: "Carta 2 - Quebrando os Muros",
+      texto: `Muitas vezes a gente constrói muralhas e tenta resolver tudo sozinho, achando que é forte desse jeito. 
+
+      Mas a verdade é que você se tornou o meu refúgio e o meu ponto de paz. Com você, eu não preciso fingir que está tudo bem quando não está; bastou você chegar para eu perceber que a vida ainda planeja muitas coisas boa para mim. Você é a minha parceira de verdade, para qualquer coisa e eu vou sempre estar aqui para estar e ajudar você.`,
+      fotos: [
+        "{{ url_for('static', filename='c2-1.png') }}",
+        "{{ url_for('static', filename='c2-2.png') }}",
+        "{{ url_for('static', filename='c2-3.png') }}"
+      ]
+    },
+    {
+      id: 3,
+      corClasse: "color-3",
+      titulo: "Carta 3 - Meu Novo Plano",
+      texto: `Em enrolados, a Rapunzel e o Flynn, descobrem que têm um novo sonho um no outro. Se eu for parar para pensar nos meus planos para o futuro, todos eles agora têm o seu nome no meio. 
+
+      Eu quero estar lá para te apoiar, para caminhar junto e para construir a nossa história. Você virou a minha prioridade e a minha maior certeza em meio a tanta bagunça.`,
+      fotos: [
+        "{{ url_for('static', filename='c3-1.png') }}",
+        "{{ url_for('static', filename='c3-2.png') }}",
+        "{{ url_for('static', filename='c3-3.png') }}"
+      ]
+    },
+    {
+      id: 4,
+      corClasse: "color-4",
+      titulo: "Carta 4 - Parceira de Batalha",
+      texto: `Eu admiro a força que você tem e a forma como você enfrenta as coisas. Ter você do meu lado me faz querer ser um cara melhor, mais forte e mais dedicado. 
+
+      Você não é só a minha namorada, é minha cúmplice, minha melhor amiga e a única pessoa para quem eu abro a guarda de verdade. Com você, qualquer perrengue fica leve.`,
+      fotos: [
+        "{{ url_for('static', filename='c4-1.png') }}",
+        "{{ url_for('static', filename='c4-2.png') }}",
+        "{{ url_for('static', filename='c4-3.png') }}"
+      ]
+    },
+    {
+      id: 5,
+      corClasse: "color-5",
+      titulo: "Carta 5 - A Luz Que Faltava",
+      texto: `E de repente a gente olha para trás e vê tudo o que superou para chegar até aqui. É aquela sensação de finalmente ver a luz brilhar de verdade, sabe? 
+
+      Você é a calmaria no meio do meu caos, a razão pela qual eu respiro fundo e sinto que estou no lugar certo. Agora, respira fundo você também e abre a última carta...`,
+      fotos: [
+        "{{ url_for('static', filename='c5-1.png') }}",
+        "{{ url_for('static', filename='c5-2.png') }}",
+        "{{ url_for('static', filename='c5-3.png') }}"
+      ]
+    },
+    {
+      id: 6,
+      corClasse: "color-6",
+      titulo: "Carta 6 - 6 Meses",
+      texto: `Bem amor, meio difícil começar. Esse ultimo mês tem sido um pouco estranho e conturbado, mas como sempre foi muito legal por estar com você.
+Seis messes né, é tempo, mas quero cada dia mais tempo com você, ultimamente você tem sido a única razão para eu não explodir e meu meio de fuga pra muita coisa. Eu não sou de falar muito sobre algumas coisas (sóbrio), mas é incrível como quase sempre sabe o que eu sinto ou o que penso. Ultimamente a gente não anda na melhor fase e isso vai passar, não tem muita opção não, porque você é minha agora e vai ser no futuro também, contrato vitalício. 
+
+Enfim, indo mais direto ao ponto eu só quero te agradecer por esses 6 meses de namoro, mas quase 1 ano desde do nosso primeiro role que você pode interpretar como o filme, mas sendo sincero, desde o aniversário da rafa eu vi algo diferente em você, mesmo tentando sujar meu tênis e não conseguindo porque eu fui incrível em desviar de você. Enfim só quero que perceba o quão boa e incrível como namorada, amiga, parceira, melhor amiga, companheira e cunhada você é.
+
+Assim, eu não consegui expressar tudo o que gostaria de falar mas eu só quero que saiba que eu te amo muito e de verdade, tanto que quero te ter no futuro como a pessoa que vou proteger, prover e se aceitar lá na frente que sabe ter uma família e ter uma menina sendo a sua cópia e se for guri, seria incrível ter a sua beleza, que é imensurável. 
+Eu te amo muito.`,
+      fotos: [
+        "{{ url_for('static', filename='c6-1.png') }}",
+        "{{ url_for('static', filename='c6-2.png') }}",
+        "{{ url_for('static', filename='c6-3.png') }}"
+      ]
+    }
+  ];
+
+  let cartaAtualDesbloqueada = 1;
+
+  function confirmIntro() {
+    const overlay = document.getElementById('intro-overlay');
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.style.display = 'none', 800);
+  }
+
+  function renderCards() {
+    const container = document.getElementById('cards-container');
+    container.innerHTML = '';
+
+    const rows = [
+      [cartas[0], cartas[1], cartas[2]],
+      [cartas[3], cartas[4]],
+      [cartas[5]]
+    ];
+
+    rows.forEach(rowCartas => {
+      const rowDiv = document.createElement('div');
+      rowDiv.className = 'pyramid-row';
+
+      rowCartas.forEach(carta => {
+        const isLocked = carta.id > cartaAtualDesbloqueada;
+        const isRead = carta.id < cartaAtualDesbloqueada;
+
+        const cardDiv = document.createElement('div');
+        cardDiv.className = `envelope-card ${carta.corClasse} ${isLocked ? 'locked' : ''}`;
+        cardDiv.innerHTML = `
+          <div class="card-number">✉️ Carta ${carta.id}</div>
+          <div class="card-status">
+            ${isLocked ? '🔒 Bloqueada' : (isRead ? '✅ Lida (clique para reler)' : '✨ Disponível')}
+          </div>
+        `;
+
+        if (!isLocked) {
+          cardDiv.onclick = () => openLetter(carta);
+        }
+
+        rowDiv.appendChild(cardDiv);
+      });
+
+      container.appendChild(rowDiv);
+    });
+  }
+
+  function openLetter(carta) {
+    document.getElementById('modal-title').innerText = carta.titulo;
+    document.getElementById('modal-text').innerText = carta.texto;
+    
+    const photosDiv = document.getElementById('modal-photos');
+    photosDiv.innerHTML = '';
+    carta.fotos.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      photosDiv.appendChild(img);
+    });
+
+    document.getElementById('letter-modal').style.display = 'flex';
+
+    if (carta.id === cartaAtualDesbloqueada && cartaAtualDesbloqueada < cartas.length) {
+      cartaAtualDesbloqueada++;
+    }
+  }
+
+  function closeModal() {
+    document.getElementById('letter-modal').style.display = 'none';
+    renderCards();
+  }
+
+  renderCards();
+</script>
+</body>
+</html>
